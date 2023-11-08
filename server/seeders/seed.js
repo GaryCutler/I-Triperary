@@ -1,12 +1,12 @@
 const db = require('../config/connection');
-const { Profile } = require('../models');
+const { User } = require('../models');
 const cleanDB = require('./cleanDB');
-const profileSeeds = require('./profileSeeds.json');
+const userSeeds = require('./userSeeds.json');
 
 const seedDatabase = async () => {
   try {
-    await cleanDB('Profile', 'profiles');
-    await Profile.create(profileSeeds);
+    await cleanDB('user', 'users');
+    await User.create(userSeeds);
 
     console.log('Seed data inserted successfully!');
   } catch (error) {

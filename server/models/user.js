@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const profileSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -19,9 +19,13 @@ const profileSchema = new Schema({
     required: true,
     minlength: 8,
   },
+  City: [{
+    type: Schema.Types.ObjectId,
+    ref: "City"
+  }],
 });
 
-profileSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -29,10 +33,10 @@ profileSchema.pre('save', async function (next) {
   next();
 });
 
-profileSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const Profile = model('Profile', profileSchema);
+const User = model('user', userSchema);
 
-module.exports = Profile;
+module.exports = User;
