@@ -1,7 +1,5 @@
 import Nav from './components/Nav';
-import Createdtrips from './components/Createdtrips';
-import Destinations from "./components/Destinations"
-
+import {Outlet} from 'react-router-dom'
 import React from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import CityInput from './CityInput';
@@ -16,8 +14,8 @@ export default function App() {
   return (
     <div>
       <Nav />
-      <Createdtrips />
-      <Destinations />
+
+      <Outlet />
       <ApolloProvider client={client}>
       <div>
         <h1>ChatGPT City Explorer</h1>
