@@ -5,10 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Error from './components/pages/error';
-import Login from './components/pages/login';
-import Logout from './components/pages/logout';
-import SignUp from './components/pages/SignUp';
+import Error from './pages/error';
+import Login from './pages/login';
+import Logout from './pages/logout';
+import SignUp from './pages/SignUp';
+import Home from './pages/home'
 // Define the accessible routes, and which components respond to which URL
 const router = createBrowserRouter([
   {
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <Home />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
+      },
+      {
+        path: '/login',
         element: <Login />,
       },
       {
