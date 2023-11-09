@@ -1,15 +1,11 @@
 import Nav from './components/Nav';
-import Createdtrips from './components/Createdtrips';
-import Destiantions from "./components/Destinations"
-import Grid from "./components/Grid"
+import {Outlet} from 'react-router-dom'
 // Pass users array to the List component as a prop
 export default function App() {
-  return (
-    <div>
-      <Nav />
-      <Destiantions />
-      <Createdtrips />
-      < Grid />
-    </div>
-  );
+ return (
+   <div>
+     <Nav />
+     <Outlet />
+   </div>
+ );
 }
