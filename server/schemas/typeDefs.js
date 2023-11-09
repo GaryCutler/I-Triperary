@@ -24,6 +24,7 @@ const typeDefs = gql `
     User(UserId: ID!): User
     me: User
     getCityByStateAndName(state: String!, name: String!): City
+    chat(message: String!): String
   }
 
   type Mutation {

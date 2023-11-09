@@ -48,20 +48,43 @@
 // };
 
 // module.exports = resolvers;
-const City = require('../models'); 
+// const City = require('../models'); 
+const axios = require('axios');
+// const { OpenAIAPIKey } = require('../config/connection'); 
+
 
 const resolvers = {
-  Query: {
-    getCityByStateAndName: async (_, { state, name }) => {
+  // Query: {
+  // getCityByStateAndName: async (_, { state, name }) => {
+  //     try {
+  //       const city = await City.findOne({ state, name });
+  //       if (city) {
+  //         return city;
+  //       } else {
+  //         throw new Error('City not found');
+  //       }
+  //     } catch (error) {
+  //       throw new Error(error.message);
+  //     }
+  //   },
+  // },
+   Query: { 
+  chat: async (_, { message }) => {
       try {
-        const city = await City.findOne({ state, name });
-        if (city) {
-          return city;
-        } else {
-          throw new Error('City not found');
-        }
+        const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+          prompt: `Tell me about ${message}`,
+          max_tokens: 150,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${OpenAIAPIKey}`, // Make sure OpenAIAPIKey is defined and accessible
+          },
+        });
+
+        return response.data.choices[0].text.trim();
       } catch (error) {
-        throw new Error(error.message);
+        console.error(error);
+        throw new Error('Internal server error');
       }
     },
   },

@@ -3,6 +3,11 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
+// const { OpenAIAPIKey } = require('./config/connection'); // Import your OpenAI API key
+require('dotenv').config(); // Load environment variables from .env file
+
+OpenAIAPIKey = process.env.OPENAI_API_KEY;
+
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -12,6 +17,7 @@ const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
