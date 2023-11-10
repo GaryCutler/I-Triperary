@@ -8,10 +8,10 @@ export default function App() {
   return (
     <>
     <video autoPlay muted loop id="bgVideo">
-      <source src="/Waterfall.mp4" type="video/mp4"/>
+      <source src="/Shorter_Waterfall2.mp4" type="video/mp4"/>
       Your browser does not support HTML5 video.
     </video>
-    <div style={{backgroundVideo: "url('/Waterfall.mp4')"}}>
+    <div style={{backgroundVideo: "url('/Shorter_Waterfall2.mp4')"}}>
       <Nav />
       <Createdtrips />
       < Grid />
