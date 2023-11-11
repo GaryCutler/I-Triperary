@@ -1,4 +1,4 @@
-const typeDefs = gql `
+const typeDefs = `
   type User {
     _id: ID
     name: String!
@@ -9,14 +9,14 @@ const typeDefs = gql `
 
   type Auth {
     token: ID!
-    User: User
+    user: User
   }
 
   type Destination {
     id: ID!
     name: String!
     location: String!
-    activities: [String!]!
+    activities: [Activity]!
   }
 
   type Activity {
@@ -24,6 +24,18 @@ const typeDefs = gql `
     name: String!
     location: String!
     description: String!
+  }
+
+  type PackingItem {
+    id: ID!
+    name: String!
+    quantity: Int!
+    packed: Boolean!
+  }
+
+  type PackingList {
+    id: ID!
+    items: [PackingItem!]!
   }
 
   type Itinerary {
