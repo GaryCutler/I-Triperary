@@ -19,10 +19,12 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
   },
-  City: [{
-    type: Schema.Types.ObjectId,
-    ref: "City"
-  }],
+  trips: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Itinerary"
+    }
+  ],
 });
 
 userSchema.pre('save', async function (next) {
