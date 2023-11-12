@@ -11,7 +11,7 @@ const typeDefs = `
 
   type Auth {
     token: ID!
-    User: User
+    user: User
   }
 
   type Destination {
@@ -36,6 +36,7 @@ const typeDefs = `
   }
 
   type PackingList {
+    id: ID!
     items: [PackingItem!]!
   }
 
