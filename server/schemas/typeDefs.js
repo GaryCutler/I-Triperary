@@ -1,3 +1,5 @@
+// const { gql } = require('apollo-server');
+// const typeDefs = gql`
 const typeDefs = `
   type User {
     _id: ID
@@ -16,7 +18,7 @@ const typeDefs = `
     id: ID!
     name: String!
     location: String!
-    activities: [Activity]!
+    activities: [Activity!]!
   }
 
   type Activity {
@@ -63,12 +65,15 @@ const typeDefs = `
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addDestination(itineraryId: ID!, name: String! quantity: Int!): Destination
+    addDestination(itineraryId: ID!, name: String!, quantity: Int!): Destination
     addPackingItem(itineraryID: ID!, name: String!, quantity: Int!): PackingItem
     updatePackingItem(itemId: ID!, packed: Boolean!): PackingItem
     addItinerary(userId: ID!, startDate: String!, endDate: String!): Itinerary
     addDestinationToItinerary(itineraryId: ID!, destinationId: ID!): Itinerary
     addItemToPackingList(itineraryId: ID!, itemId: ID!): PackingList
+    addActivityToDestination(destinationId: ID!, activityId: ID!): Destination
+    addActivity(name: String!, location: String!, description: String!): Activity
+    deleteDestination(itineraryId: ID!, name: String!, quantity: Int!): Destination
   }
 `;
 
