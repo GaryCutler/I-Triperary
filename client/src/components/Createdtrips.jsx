@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 
 function createdTripOne() {
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className= "left-component" style={{ width: '18rem' }}>
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
         <Card.Title>Card Title</Card.Title>
