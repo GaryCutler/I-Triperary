@@ -1,15 +1,10 @@
-const { AuthenticationError } = require('../models'); 
-
-const users = [];
-const itineraries = [];
-const destinations = [];
-const activities = [];
-const packingLists = [];
+const { User, Destination, Itinerary, PackingItem, PackingList} = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth'); 
 
 const resolvers = {
   Query: {
-    user: (_, { userId }) => {
-      return users.find(user => user._id === userId);
+    user: async (parent, { userId }) => {
+      return User.find(user => user._id === userId);
     },
     itinerary: (_, { itineraryId }) => {
       return itineraries.find(itinerary => itinerary.id === itineraryId);
@@ -30,6 +25,7 @@ const resolvers = {
       throw new AuthenticationError('User not authenticated');
     },
   },
+
   Mutation: {
     addUser: (_, { name, email, password }) => {
       const newUser = { _id: String(users.length + 1), name, email, password, trips: [] };
@@ -53,11 +49,14 @@ const resolvers = {
       }
       throw new Error('Itinerary not found');
     },
-    addActivity: (_, { name, location, description }) => {
-      const newActivity = { id: String(activities.length + 1), name, location, description };
-      activities.push(newActivity);
-      return newActivity;
-    },
+
+    // We can propably use it in the future
+    // addActivity: (_, { name, location, description }) => {
+    //   const newActivity = { id: String(activities.length + 1), name, location, description };
+    //   activities.push(newActivity);
+    //   return newActivity;
+    // },
+    
     addActivityToDestination: (_, { destinationId, activityId }) => {
       const destination = destinations.find(dest => dest.id === destinationId);
       const activity = activities.find(act => act.id === activityId);
