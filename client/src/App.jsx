@@ -1,7 +1,6 @@
 import Nav from './components/Nav';
 import Createdtrips from './components/Createdtrips';
-import Destiantions from "./components/Destinations"
-import Grid from "./components/Grid"
+import {Outlet} from 'react-router-dom'
 import './App.css'
 // Pass users array to the List component as a prop
 export default function App() {
@@ -13,9 +12,11 @@ export default function App() {
     </video>
     <div>
       <Nav />
-      <Createdtrips />
-      < Grid />
+      <Outlet />
     </div>
     </>
   );
 }
+
+
+
