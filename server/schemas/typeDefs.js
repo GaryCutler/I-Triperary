@@ -72,7 +72,6 @@ const typeDefs = `
     addDestinationToItinerary(itineraryId: ID!, destinationId: ID!): Itinerary
     addItemToPackingList(itineraryId: ID!, itemId: ID!): PackingList
     addActivityToDestination(destinationId: ID!, activityId: ID!): Destination
-    addActivity(name: String!, location: String!, description: String!): Activity
     deleteDestination(itineraryId: ID!, name: String!, quantity: Int!): Destination
   }
 `;
