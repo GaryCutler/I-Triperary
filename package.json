@@ -18,6 +18,8 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "develop": "^1.0.0",
+    "run": "^1.4.0"
   }
 }
