@@ -1,12 +1,8 @@
 const { Schema, model } = require('mongoose');
+const packingItemSchema = require('./PackingItem');
 
 const packingListSchema = new Schema({
-    items: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'PackingItem',
-        },
-    ],
+    items: [packingItemSchema],
 });
 
 const PackingList = model('PackingList', packingListSchema);
