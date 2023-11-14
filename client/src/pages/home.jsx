@@ -1,12 +1,10 @@
 import Createdtrips from '../components/Createdtrips';
-import Grid from "../components/Grid"
-
+import Destinations from "../components/Destinations"
 function home () {
   return (
     <>
       <Createdtrips />
-      <Grid />
-      
+      <Destinations />
     </>
   );
 }
