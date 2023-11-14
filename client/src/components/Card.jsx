@@ -42,7 +42,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Packing List App</h1>
+      <h1>Packing List</h1>
       <AddItemForm addItem={addItem} />
       <ItemList items={items} />
     </div>
