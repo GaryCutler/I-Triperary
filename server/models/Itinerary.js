@@ -11,7 +11,7 @@ const itinerarySchema = new Schema ({
             ref: 'Destination',
         },
     ],
-    // TODO: Double check on the date 
+
     startDate: {
         type: Date,
         req: true,
@@ -20,7 +20,12 @@ const itinerarySchema = new Schema ({
         type: Date,
         req: true,
     },
-    packingList: [packingListSchema],
+    packingList: [
+        { 
+            type: Schema.Types.ObjectId,
+            ref: 'PackingList',
+        }
+    ],
 });
 
 const Itinerary = model('Itinerary', itinerarySchema);
