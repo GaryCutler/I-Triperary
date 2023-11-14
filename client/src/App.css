@@ -1,0 +1,21 @@
+
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  z-index: -1;
+}
+
+#root {
+
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 2rem;
+    
+}
+  
+
+  
+

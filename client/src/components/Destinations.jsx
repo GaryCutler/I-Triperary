@@ -31,13 +31,13 @@ function BasicExample() {
   const [cities, setCity] = useState([])
   useEffect(() => {
     setCity([]);
+
     console.log(selectedState)
     if (selectedState === ""){return}
     const response = fetch(`https://api.countrystatecity.in/v1/countries/${selectedCountry}/states/${selectedState}/cities`, requestOptions)
     .then((response)=> response.json())
     .then((data)=> {setCity(data)})
   }, [selectedState, selectedCountry])
-
 
   const destinationOptions = destinations.map((dest, index)=> {
     return <option key={dest.iso2} value={dest.iso2}>{dest.name}</option>
@@ -49,7 +49,8 @@ function BasicExample() {
     <option key={dest.iso2} value={dest.iso2}>{dest.name}</option>
   ));
   const cityOptions = cities.map((dest, index)=> {
-    return <option key={dest.name} value={index}>{dest.name}</option>
+
+    return <option key={dest.iso2} value={index}>{dest.name}</option
 })
   return (
     <Card style={{ width: '18rem' }}>
