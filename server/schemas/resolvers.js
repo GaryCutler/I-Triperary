@@ -3,48 +3,49 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    user: async (parent, { userId }) => {
-      return User.find(user => user._id === userId);
+    user: async (_, { userId }) => {
+      return await User.find(user => user._id === userId);
     },
-    itinerary: (_, { itineraryId }) => {
-      return itineraries.find(itinerary => itinerary.id === itineraryId);
+    itinerary: async (parent, { itineraryId }) => {
+      return await Itinerary.find(itinerary => itinerary.id === itineraryId);
     },
     dashboard: (_, { userId }) => {
       return {
-        upcomingTrips: itineraries.filter(itinerary => itinerary.user._id === userId && new Date(itinerary.startDate) > new Date()),
-        pastTrips: itineraries.filter(itinerary => itinerary.user._id === userId && new Date(itinerary.endDate) < new Date())
+        upcomingTrips: Itinerary.filter(itinerary => itinerary.user._id === userId && new Date(itinerary.startDate) > new Date()),
+        pastTrips: Itinerary.filter(itinerary => itinerary.user._id === userId && new Date(itinerary.endDate) < new Date())
       };
     },
     chat: (_, { message }) => {
       return `Chat response for message: ${message}`;
     },
-    me: (_, __, context) => {
+    me: async (_, __, context) => {
       if (context.user) {
-        return users.find(user => user._id === context.user._id);
+        return User.find(user => user._id === context.user._id);
       }
       throw new AuthenticationError('User not authenticated');
     },
   },
 
   Mutation: {
-    addUser: (_, { name, email, password }) => {
+    addUser: async (_, { name, email, password }) => {
       const newUser = { _id: String(users.length + 1), name, email, password, trips: [] };
-      users.push(newUser);
-      return { token: 'your-auth-token', User: newUser };
+      User.push(newUser);
+      const token = signToken(newUser);
+      return { token: token, user: newUser };
     },
-    login: (_, { email, password }) => {
-      const user = users.find(u => u.email === email && u.password === password);
+    login: async (_, { email, password }) => {
+      const user = await User.find(u => u.email === email && u.password === password);
       if (user) {
-        return { token: 'your-auth-token', User: user };
+        return { user };
       }
       throw new AuthenticationError('Incorrect email or password');
     },
     addDestination: (_, { itineraryId, name, quantity }) => {
-      const destination = { id: String(destinations.length + 1), name, quantity, location: '', activities: [] };
-      destinations.push(destination);
-      const itinerary = itineraries.find(it => it.id === itineraryId);
+      const destination = { id: String(Destination.length + 1), name, quantity, location: '', activities: [] };
+      Destination.push(destination);
+      const itinerary = Itinerary.find(it => it.id === itineraryId);
       if (itinerary) {
-        itinerary.destinations.push(destination);
+        itinerary.Destination.push(destination);
         return destination;
       }
       throw new Error('Itinerary not found');
@@ -58,7 +59,7 @@ const resolvers = {
     // },
     
     addActivityToDestination: (_, { destinationId, activityId }) => {
-      const destination = destinations.find(dest => dest.id === destinationId);
+      const destination = Destination.find(dest => dest.id === destinationId);
       const activity = activities.find(act => act.id === activityId);
       if (destination && activity) {
         destination.activities.push(activity);
@@ -66,55 +67,67 @@ const resolvers = {
       }
       throw new Error('Destination or activity not found');
     },
-    addPackingItem: (_, { itineraryID, name, quantity }) => {
-      const packingItem = { id: String(packingLists.length + 1), name, quantity, packed: false };
-      packingLists.push(packingItem);
-      return packingItem;
+    addPackingItem: async (_, { packingListId, name, quantity }) => {
+      const packingItem = { name, quantity, packed: false };
+      const packingList = await PackingList.updateOne(
+        { _id: packingListId }, 
+        { $push: {items: packingItem} },
+        { new: true}
+      );
+      return packingList;
     },
-    updatePackingItem: (_, { itemId, packed }) => {
-      const packingItem = packingLists.find(item => item.id === itemId);
+    updatePackingItem: async (_, { packingListId, name, quantity, packed }) => {
+      const packingList = await PackingList.findById(packingListId);
+      const packingItem = {
+
+      }
       if (packingItem) {
         packingItem.packed = packed;
         return packingItem;
       }
       throw new Error('Packing item not found');
     },
-    addItinerary: (_, { userId, startDate, endDate }) => {
-      const user = users.find(u => u._id === userId);
+    addItinerary: async (_, { userId, startDate, endDate }) => {
+      const user = await User.findById(userId);
       if (user) {
-        const newItinerary = { id: String(itineraries.length + 1), user, startDate, endDate, destinations: [], packingList: [] };
-        itineraries.push(newItinerary);
-        user.trips.push(newItinerary);
-        return newItinerary;
+        const newItinerary = { user, startDate, endDate, destinations: [], packingList: [] };
+        const itinerary = await Itinerary.create(newItinerary);
+        if (user.trips && user.trips.length > 0) {
+          user.trips.push(itinerary);
+        } else {
+          user.trips = [itinerary];
+        }
+        user.save();
+        return itinerary;
       }
       throw new Error('User not found');
     },
-    addDestinationToItinerary: (_, { itineraryId, destinationId }) => {
-      const itinerary = itineraries.find(it => it.id === itineraryId);
-      const destination = destinations.find(dest => dest.id === destinationId);
+    addDestinationToItinerary: async (_, { itineraryId, destinationId }) => {
+      const itinerary = await Itinerary.find(it => it.id === itineraryId);
+      const destination = await Destination.find(dest => dest.id === destinationId);
       if (itinerary && destination) {
-        itinerary.destinations.push(destination);
+        itinerary.Destination.push(destination);
         return itinerary;
       }
       throw new Error('Itinerary or destination not found');
     },
-    addItemToPackingList: (_, { itineraryId, itemId }) => {
-      const itinerary = itineraries.find(it => it.id === itineraryId);
-      const packingItem = packingLists.find(item => item.id === itemId);
+    addItemToPackingList: async (_, { itineraryId, itemId }) => {
+      const itinerary = await Itinerary.find(it => it.id === itineraryId);
+      const packingItem = await PackingList.find(item => item.id === itemId);
       if (itinerary && packingItem) {
-        itinerary.packingList.push(packingItem);
+        itinerary.PackingList.push(packingItem);
         return itinerary;
       }
       throw new Error('Itinerary or packing item not found');
     },
-    deleteDestination: (_, { itineraryId, name, quantity }) => {
-      const itinerary = itineraries.find(it => it.id === itineraryId);
+    deleteDestination: async (_, { itineraryId, name, quantity }) => {
+      const itinerary = await Itinerary.find(it => it.id === itineraryId);
       
       if (itinerary) {
-        const destinationIndex = itinerary.destinations.findIndex(dest => dest.name === name && dest.quantity === quantity);
+        const destinationIndex = itinerary.Destination.findIndex(dest => dest.name === name && dest.quantity === quantity);
         
         if (destinationIndex !== -1) {
-          const deletedDestination = itinerary.destinations.splice(destinationIndex, 1)[0];
+          const deletedDestination = itinerary.Destination.splice(destinationIndex, 1)[0];
           return deletedDestination;
         } else {
           throw new Error('Destination not found in the itinerary');

@@ -2,56 +2,55 @@
 // const typeDefs = gql`
 const typeDefs = `
   type User {
-    _id: ID
-    name: String!
-    email: String!
-    password: String!
-    trips: [Itinerary!]!
+    _id: ID!
+    name: String
+    email: String
+    password: String
+    trips: [Itinerary]
   }
 
   type Auth {
-    token: ID!
+    token: ID
     user: User
   }
 
   type Destination {
-    id: ID!
-    name: String!
-    location: String!
-    activities: [Activity!]!
+    _id: ID!
+    name: String
+    location: String
+    activities: [Activity]
   }
 
   type Activity {
-    id: ID!
-    name: String!
-    location: String!
-    description: String!
+    _id: ID!
+    name: String
+    location: String
+    description: String
   }
 
   type PackingItem {
-    id: ID!
+    _id: ID!
     name: String!
     quantity: Int!
     packed: Boolean!
   }
 
   type PackingList {
-    id: ID!
-    items: [PackingItem!]!
+    _id: ID
+    items: [PackingItem]
   }
 
   type Itinerary {
-    id: ID!
-    user: User!
-    destinations: [Destination!]!
-    startDate: String!
-    endDate: String!
-    packingList: PackingList!
+    _id: ID!
+    destinations: [Destination]
+    startDate: String
+    endDate: String
+    packingList: PackingList
   }
 
   type TripDashboard {
-    upcomingTrips: [Itinerary!]!
-    pastTrips: [Itinerary!]!
+    upcomingTrips: [Itinerary]
+    pastTrips: [Itinerary]
   }  
   
   type Query {
