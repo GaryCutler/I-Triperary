@@ -39,6 +39,7 @@ function BasicExample() {
     .then((data)=> {setCity(data)})
   }, [selectedState, selectedCountry])
 
+
   const destinationOptions = destinations.map((dest, index)=> {
     return <option key={dest.iso2} value={dest.iso2}>{dest.name}</option>
   })
@@ -50,7 +51,8 @@ function BasicExample() {
   ));
   const cityOptions = cities.map((dest, index)=> {
 
-    return <option key={dest.iso2} value={index}>{dest.name}</option
+    return <option key={dest.name} value={index}>{dest.name}</option>
+
 })
   return (
     <Card style={{ width: '18rem' }}>
