@@ -27,7 +27,7 @@ const ChatComponent = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Type your message"
+          placeholder="Recomendations For Your Trip"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />

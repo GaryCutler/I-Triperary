@@ -11,6 +11,9 @@ function ContainerExample() {
     className="mb-2 l-5">
   <Card.Body>
     <Card.Text variant="top">Select What days you would like to travel!</Card.Text>
+    <p>Pick A Date To Leave</p>
+  <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+  <p>Pick A Date To Comeback</p>
   <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
   </Card.Body>
 </Card>
