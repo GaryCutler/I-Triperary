@@ -66,31 +66,25 @@ const startApolloServer = async () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           },
         }
       );
-
+  
       res.json({ reply: response.data.choices[0].message.content });
     } catch (error) {
       console.error(error);
-
-      if (error.response && error.response.status === 429) {
-        // If rate-limited, wait for a while and then retry
-        setTimeout(async () => {
-          try {
-            const retryResponse = await axios.post(/* Same API request as above */);
-            res.json({ reply: retryResponse.data.choices[0].message.content });
-          } catch (retryError) {
-            console.error(retryError);
-            res.status(500).json({ message: 'Internal Server Error' });
-          }
-        }, 5000); 
+  
+      if (error.response) {
+        console.error('OpenAI API Response:', error.response.data);
+        res.status(error.response.status || 500).json({ message: 'OpenAI API Error' });
       } else {
+        console.error('Non-network Error:', error.message);
         res.status(500).json({ message: 'Internal Server Error' });
       }
     }
-    });
+  });
+  
 
   app.use(routes);
   
