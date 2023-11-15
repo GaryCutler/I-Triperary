@@ -16,7 +16,7 @@ const Signup = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+console.log(name, value);
     setFormState({
       ...formState,
       [name]: value,
@@ -56,24 +56,24 @@ const Signup = () => {
                   placeholder="Your username"
                   name="username"
                   type="text"
-                  value={formState.name}
-                  onChange={handleChange}
+                  // value={formState.username}
+                  onBlur={handleChange}
                 />
                 <input
                   className="form-input"
                   placeholder="Your email"
                   name="email"
                   type="email"
-                  value={formState.email}
-                  onChange={handleChange}
+                  // value={formState.email}
+                  onBlur={handleChange}
                 />
                 <input
                   className="form-input"
                   placeholder="******"
                   name="password"
                   type="password"
-                  value={formState.password}
-                  onChange={handleChange}
+                  // value={formState.password}
+                  onBlur={handleChange}
                 />
                 <button
                   className="btn btn-block btn-primary"

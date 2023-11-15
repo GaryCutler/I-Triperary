@@ -15,7 +15,7 @@ function home () {
         <Destinations />
       </div>
       <div>
-      <DatePicker />
+      {/* <DatePicker /> */}
       </div>
       <div>
         <Card />
