@@ -1,7 +1,7 @@
-const User = require('./User');
-const Destination = require('./Destination');
-const Itinerary = require('./Itinerary');
-const PackingItem = require('./PackingItem');
-const PackingList = require('./PackingList');
+const User = require('./User.js');
+const Destination = require('./Destination.js');
+const Itinerary = require('./Itinerary.js');
+const PackingItem = require('./PackingItem.js');
+const PackingList = require('./PackingList.js');
 
 module.exports = { User, Destination, Itinerary, PackingItem, PackingList};
