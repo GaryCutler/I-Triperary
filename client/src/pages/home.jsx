@@ -6,7 +6,7 @@ import "/src/App.css"
 import Card from '../components/Card';
 function home () {
   return (
-    <Stack direction="horizontal" gap={3} className="col-md-5 m-auto " >
+    <Stack direction="horizontal" gap={3} className="col-md-5  " >
     <>
     <div>
       <Createdtrips />
