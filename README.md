@@ -19,11 +19,17 @@ Screenshots:
 
 Website URL: 
 
-GitHub Repository: 
+GitHub Repository: https://github.com/GaryCutler/I-Triperary
 
 ## CREDITS
 
-There were five collaborators in total displayed below with their Git Hub accounts attached.
+There were six collaborators in total displayed below with their Git Hub accounts attached.
+
+Reginald Gardner: https://github.com/rgard630
+
+Gary Cutler: https://github.com/GaryCutler
+
+Yuxiang (Sean) Ye: https://github.com/seanye333
 
 Gage Hamel: https://github.com/GageHamel
 
