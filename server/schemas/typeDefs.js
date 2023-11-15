@@ -3,7 +3,7 @@
 const typeDefs = `
   type User {
     _id: ID!
-    name: String
+    username: String
     email: String
     password: String
     trips: [Itinerary]
@@ -62,9 +62,9 @@ const typeDefs = `
   }
 
   type Mutation {
-    addUser(name: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addDestination(itineraryId: ID!, name: String!, quantity: Int!): Destination
+    addDestination(itineraryId: ID!, name: String!, location: String!): Destination
     addPackingItem(itineraryID: ID!, name: String!, quantity: Int!): PackingItem
     updatePackingItem(itemId: ID!, packed: Boolean!): PackingItem
     addItinerary(userId: ID!, startDate: String!, endDate: String!): Itinerary
