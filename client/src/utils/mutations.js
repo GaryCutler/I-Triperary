@@ -25,7 +25,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_DESTINATION = gql`
-    mutationion addDestination($itineraryId: ID!, $name: String!, $location: String!) {
+    mutation addDestination($itineraryId: ID!, $name: String!, $location: String!) {
         addDestination(itineraryId: $itineraryId, name: $name, location: $location) {
             _id
             name
@@ -52,7 +52,7 @@ export const ADD_PACKING_ITEM = gql`
 `;
 
 export const UPDATE_PACKING_ITEM = gql`
-    mutation UpdatePackingItem($itemId: ID!, $packed: Boolean!) {
+    mutation updatePackingItem($itemId: ID!, $packed: Boolean!) {
         updatePackingItem(itemId: $itemId, packed: $packed) {
             _id
             name
@@ -60,10 +60,10 @@ export const UPDATE_PACKING_ITEM = gql`
             packed
         }
     }
-`
+`;
 
 export const ADD_ITINERARY = gql`
-    mutation Mutation($userId: ID!, $startDate: String!, $endDate: String!) {
+    mutation addItinerary($userId: ID!, $startDate: String!, $endDate: String!) {
         addItinerary(userId: $userId, startDate: $startDate, endDate: $endDate) {
             _id
             startDate
@@ -90,10 +90,10 @@ export const ADD_ITINERARY = gql`
             }
         }
     }
-`
+`;
 
 export const ADD_DESTINATION_TO_ITINERARY = gql`
-    mutation AddDestinationToItinerary($itineraryId: ID!, $destinationId: ID!) {
+    mutation addDestinationToItinerary($itineraryId: ID!, $destinationId: ID!) {
         addDestinationToItinerary(itineraryId: $itineraryId, destinationId: $destinationId) {
             _id
             destinations {
@@ -120,10 +120,10 @@ export const ADD_DESTINATION_TO_ITINERARY = gql`
             }
         }
     }
-`
+`;
 
 export const ADD_ITEM_TO_PACKING_LIST = gql`
-    mutation Mutation($itineraryId: ID!, $itemId: ID!) {
+    mutation addItemToPackingList($itineraryId: ID!, $itemId: ID!) {
         addItemToPackingList(itineraryId: $itineraryId, itemId: $itemId) {
             _id
             items {
@@ -134,10 +134,10 @@ export const ADD_ITEM_TO_PACKING_LIST = gql`
             }
         }
     }
-`
+`;
 
 export const ADD_ACTIVITY_TO_DESTINATION = gql`
-    mutation AddActivityToDestination($destinationId: ID!, $activityId: ID!) {
+    mutation addActivityToDestination($destinationId: ID!, $activityId: ID!) {
         addActivityToDestination(destinationId: $destinationId, activityId: $activityId) {
             _id
             name
@@ -150,10 +150,10 @@ export const ADD_ACTIVITY_TO_DESTINATION = gql`
             }
         }
     }
-`
+`;
 
 export const DELETE_DESTINATION = gql`
-    mutation DeleteDestination($itineraryId: ID!, $name: String!, $quantity: Int!) {
+    mutation deleteDestination($itineraryId: ID!, $name: String!, $quantity: Int!) {
         deleteDestination(itineraryId: $itineraryId, name: $name, quantity: $quantity) {
             _id
             name
@@ -166,4 +166,4 @@ export const DELETE_DESTINATION = gql`
             }
         }
     }
-`
+`;
