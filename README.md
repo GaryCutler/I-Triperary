@@ -14,10 +14,9 @@ with and open AI chat box at the top. With the help of addition features to help
 Once the user signs up or logs in they are brought to their home page that displays a Destinations card where they can choose a Country, State, and/or City they would like to visit. They can then pick dates to leave and return from their trip. Next they can go to the top of the page and search in our Open AI the name of the Destination and things to do at that Destination. Finally add some things to the packing list 
 to bring with them on the trip. A Trip will then be stored to look at at a later Date.
 
-Screenshots:
 
+Website URL: https://cryptic-temple-04305-c5c77d753613.herokuapp.com/
 
-Website URL: 
 
 GitHub Repository: https://github.com/GaryCutler/I-Triperary
 
