@@ -27,15 +27,18 @@ const resolvers = {
 
   Mutation: {
     addUser: async (_, { username:name, email, password }) => {
-      const newUser = await User.create({name, email, password, trips: [] });
+      const newUser = await User.create({name, email, password });
       const token = signToken(newUser);
       return { token: token, user: newUser };
     },
     login: async (_, { email, password }) => {
-      const user = await User.findOne({ email, password });
-      console.log(user);
+      const user = await User.findOne({ email });
+      //console.log(user);
+      
       if (user) {
-        return { user };
+        if (await user.isCorrectPassword(password)) {
+          return user;
+        }
       }
       throw new Error('Incorrect email or password');
     },

@@ -22,17 +22,12 @@ const Login = (props) => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    // delete console after we are done testing everything
-    console.log(formState);
-    try {
+    
       const { data } = await login({
         variables: { ...formState },
       });
 
       Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
-    }
 
     // clear form values
     setFormState({
