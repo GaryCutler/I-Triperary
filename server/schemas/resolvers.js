@@ -26,17 +26,18 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (_, { username, email, password }) => {
-      const newUser = await User.create({username, email, password, trips: [] });
+    addUser: async (_, { username:name, email, password }) => {
+      const newUser = await User.create({name, email, password, trips: [] });
       const token = signToken(newUser);
       return { token: token, user: newUser };
     },
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email, password });
+      console.log(user);
       if (user) {
         return { user };
       }
-      throw new AuthenticationError('Incorrect email or password');
+      throw new Error('Incorrect email or password');
     },
     addDestination: async (_, { itineraryId, name, quantity }) => {
       const destination = await Destination.create({ name, quantity, location: '', activities: [] });
